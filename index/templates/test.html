@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+{#<body>#}
+{#    {% for type in type_list %}#}
+{#        <div>{{ type.type }}</div>#}
+{#    {% endfor %}#}
+    {% for name in name %}
+        {% if name.name == '手环' %}
+            <div>{{ name.name }}</div>
+            <div>{{ forloop.counter }}</div>
+        {% endif %}
+    {% endfor %}
+{#    {% for id in id %}#}
+{#        <div>{{ id.id }}</div>#}
+{#    {% endfor %}#}
+</body>
+</html>
