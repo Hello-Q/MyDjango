@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import *
 from django.views.generic import ListView
+from .form import *
 # Create your views here.
 
 
@@ -49,4 +50,6 @@ class ProductListTest(ListView):
         return context
 
 
-
+def index(request):
+    product = ProductForm()
+    return render(request, 'data_form.html', context=locals())

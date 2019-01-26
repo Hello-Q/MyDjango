@@ -25,7 +25,7 @@ SECRET_KEY = '1pza@k5xw@9s^($30lv-tm-e%#jciw5zi+zkge+j==!dj(s%=4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', '192.168.21.134']
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -83,7 +83,7 @@ DATABASES = {
         'NAME': 'MyDjango',
         'USER': 'root',
         'PASSWORD': 'ZYQ1994zyq',
-        'HOST': '132.232.229.6',
+        'HOST': '127.0.0.1',
         'PORT': '3306',
     }
 }
