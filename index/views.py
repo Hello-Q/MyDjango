@@ -51,5 +51,40 @@ class ProductListTest(ListView):
 
 
 def index(request):
-    product = ProductForm()
-    return render(request, 'data_form.html', context=locals())
+    # GET请求
+    if request.method == 'GET':
+        product = ProductForm()
+        return render(request, 'data_form.html', context=locals())
+    # POST请求
+    else:
+        product = ProductForm(request.POST)
+        if product.is_valid():
+            # 获取网页控件name的数据
+            name = product['name']
+            cname = product.cleaned_data['name']
+            print(cname)
+            return HttpResponse('提交成功')
+        else:
+            error_msg = product.errors.as_json()
+            print(error_msg)
+            return render(request, 'data_form.html', locals())
+
+
+def model_index(request, id):
+    if request.method == 'GET':
+        instance = Product.objects.filter(id=id)
+        if instance:
+            product = ProductForm(instance=instance[0])
+        else:
+            product = ProductForm()
+        return render(request, 'data_form.html', locals())
+    else:
+        product = ProductForm(request.POST)
+        if product.is_valid():
+            weight = product.cleaned_data['weight']
+            product.save()
+            return HttpResponse('提交成功')
+        else:
+            error_msg = product.error.as_json()
+            print(error_msg)
+            return render(request, 'data_form.html', locals())
