@@ -19,10 +19,11 @@ def myyear(request, year):
     return render(request, 'myyear.html', context={'month': month})
 
 
-def index(request):
+def index1(request):
     type_list = Product.objects.values('type').distinct()
     name_list = Product.objects.values('name', 'type')
-    return render(request, 'index1.html', context=locals(), status=500)
+    username = request.user.username
+    return render(request, 'index.html', context=locals(), status=500)
 
 
 class ProductList(ListView):
