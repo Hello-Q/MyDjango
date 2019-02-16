@@ -28,6 +28,10 @@ class Product(models.Model):
     class Meta:
         verbose_name = '产品信息'
         verbose_name_plural = '产品信息'
+        # 自定义用户权限
+        permissions = (
+            ('visit_Product', 'Can visit 产品信息'),
+        )
 
     # 自定义字体颜色
     def colored_type(self):
@@ -42,3 +46,4 @@ class Product(models.Model):
         return format_html('<span style="color: {};">{}</span>', color_code, self.type,)
     # 设置admin的标题
     colored_type.short_description = '带颜色的产品类型'
+

@@ -61,3 +61,8 @@ class ProductAdmin(admin.ModelAdmin):
         else:
             pass
         super(ProductAdmin, self).save_model(request, obj, form, change)
+
+
+@admin.register(Type)
+class TypeAdmin(admin.ModelAdmin):
+    list_display = ['id', 'type_name']

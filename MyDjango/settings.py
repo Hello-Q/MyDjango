@@ -46,7 +46,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     # 使用中文
-    'django.middleware.locale.LocaleMiddleware',
+    # 'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -113,9 +113,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
@@ -132,3 +132,17 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'public_static'),
     os.path.join(BASE_DIR, 'index/static'),
 ]
+# 邮箱配置信息
+EMAIL_USE_SSL = True
+# 邮件服务器
+EMAIL_HOST = 'smtp.qq.com'
+# 邮件服务器端口
+EMAIL_PORT = 465
+# 发送邮件的账号
+EMAIL_HOST_USER = '984430071@qq.com'
+# SMTP服务密码：
+EMAIL_HOST_PASSWORD = 'vjrzxgniyzbkbbcb'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+AUTH_USER_MODEL = 'user.MyUser'
+
