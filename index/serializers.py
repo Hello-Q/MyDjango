@@ -14,3 +14,10 @@ class MySerializer(serializers.Serializer):
     type = serializers.ChoiceField(choices=TYPE_CHOICES, default=1)
 
     # 重写create，将API数据更新到数据表
+    def create(self, validated_data):
+        return Product.objects.create(**validated_data)
+
+    # 重写update，将api更新的数据更新到表
+    def update(self, instance, validated_data):
+        instance.name = validated_data.get('name', instance.name)
+        instance.weight = validated_data.get('weight', instance.weight)
