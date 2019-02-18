@@ -40,9 +40,17 @@ INSTALLED_APPS = [
     'index',
     'user_definde',
     'user',
+    'rest_framework',
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 2
+}
+
 MIDDLEWARE = [
+    # 配置全站缓存
+    # 'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     # 使用中文
@@ -52,7 +60,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 配置全站缓存
+    # 'django.middleware.cache.FetchFromCacheMiddleware',
 ]
+# 设置缓存的生命周期
+# CACHE_MIDDLEWARE_SECONDS = 60
+# # 设置缓存数据保存在数据表my_cache_table中
+# CACHE_MIDDLEWARE_ALIAS = 'default's
+# 设置缓存表字段cache_key的值
+# CACHE_MIDDLEWARE_KEY_PREFIX = 'MyDjango'
 
 ROOT_URLCONF = 'MyDjango.urls'
 
@@ -121,8 +137,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
-
+USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
@@ -146,3 +161,21 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 AUTH_USER_MODEL = 'user.MyUser'
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'my_cache_table',
+        # 设置缓存生命周期
+        'TIMEOUT': 60,
+        'OPTIONS': {
+            # 设置最大缓存记录数量
+            'MAX_ENTRIES': 1000,
+            # 设置剔除数量
+            'CULL_FREQUENCY': 3,
+        }
+    },
+    'MyDjango': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'MyDjango_cache_table',
+    }
+}

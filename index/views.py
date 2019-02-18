@@ -4,6 +4,10 @@ from .models import *
 from django.views.generic import ListView
 from .form import *
 from django.contrib.auth.decorators import login_required, permission_required
+from django.views.decorators.cache import cache_page
+from django.contrib import messages
+from django.template import RequestContext
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
 
 
@@ -119,3 +123,30 @@ def model_index(request, id):
             error_msg = product.error.as_json()
             print(error_msg)
             return render(request, 'data_form.html', locals())
+
+
+def messageView(request):
+    # 信息添加方法一
+    messages.info(request, '信息提示')
+    messages.success(request, '操作成功')
+    messages.warning(request, '信息警告')
+    messages.error(request, '操作错误')
+    # 添加方法二
+    messages.add_message(request, messages.INFO, '信息提示')
+    return render(request, 'message.html', locals(),)
+
+
+def paginationView(request, page):
+    # 获取product全部数据
+    Product_lsit = Product.objects.all()
+    #设置3个一页
+    paginator = Paginator(Product_lsit, 3)
+    try:
+        pageInfo = paginator.page(page)
+    # 页码不为整数返回第一页
+    except PageNotAnInteger:
+        pageInfo = paginator(1)
+    # 超出页码总数返回最后一页
+    except EmptyPage:
+        pageInfo = paginator.page(paginator.num_pages)
+    return render(request, 'pagination.html', locals())
